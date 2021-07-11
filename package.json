@@ -1,0 +1,20 @@
+{
+    "name": "darkforest-quickstart",
+    "private": true,
+    "engines": {
+        "node": ">=14 <16"
+    },
+    "// Array order of the workspaces determines the order they are built": null,
+    "// So `eth` must always come before client/websever": null,
+    "// Additionally, packages don't use globs so everything is built in correct order": null,
+    "workspaces": [
+        "eth",
+        "client"
+    ],
+    "scripts": {
+        "prepare": "yarn workspaces run prepare",
+        "test": "yarn workspaces run test",
+        "lint": "yarn workspaces run lint",
+        "format": "yarn workspaces run format"
+    }
+}
