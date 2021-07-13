@@ -12,8 +12,7 @@ This repo uses submodules to pair the [DarkForest Ethereum backend](https://gith
 
 ## Run a local game
 
-- Open a terminal tab and run `yarn workspace eth hardhat:node` which starts a local ethereum blockchain.
-- Open another terminal tab and run `yarn workspace eth hardhat:dev deploy --whitelist false && yarn workspace client start:dev` to deploying the contracts into your local node start the game client.
+- Open a terminal tab and run `yarn start`, which will start 1) local node, 2) deploy the contracts, and 3) build the local client in dev mode
 - When finsihed, the process should pop up your browser to the game client at http://localhost:8081/
 
 You won't have a webserver to drip you a few cents to start playing (which Dark Forest usually does) so instead of creating a new burner wallet, you'll want to import one of the private keys the node funded for you. See the node page where it prints wallets like:
