@@ -18,4 +18,5 @@ This repo uses submodules to pair the [DarkForest Ethereum backend](https://gith
 You won't have a webserver to drip you a few cents to start playing (which Dark Forest usually does) so instead of creating a new burner wallet, you'll want to import one of the private keys the node funded for you. See the node page where it prints wallets like:
 
 > Account #2: 0x3097403b64fe672467345bf159f4c9c5464bd89e (100 ETH)
+>
 > Private Key: 0x67195c963ff445314e667112ab22f4a7404bad7f9746564eb409b9bb8c6aed32
