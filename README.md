@@ -2,7 +2,7 @@
 
 The Dark Forest client deploy process is set up for players to easily fork the client and connect to the maininet game, but that design decision currently makes it difficult to run a playable version of the game locally. This repository provides a setup for running a local game with just a few steps.
 
-This repo uses submodules to pair the [Dark Forest Ethereum backend](https://github.com/darkforest-eth/eth) with the [Dark Forest JavaScript frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
+This repo uses submodules to pair the [Dark Forest Ethereum backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
 
 ## Install
 
