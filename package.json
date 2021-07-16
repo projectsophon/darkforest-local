@@ -1,20 +1,27 @@
 {
-    "name": "darkforest-quickstart",
-    "private": true,
-    "engines": {
-        "node": ">=14 <16"
-    },
-    "// Array order of the workspaces determines the order they are built": null,
-    "// So `eth` must always come before client/websever": null,
-    "// Additionally, packages don't use globs so everything is built in correct order": null,
-    "workspaces": [
-        "eth",
-        "client"
-    ],
-    "scripts": {
-        "prepare": "yarn workspaces run prepare",
-        "test": "yarn workspaces run test",
-        "lint": "yarn workspaces run lint",
-        "format": "yarn workspaces run format"
-    }
+  "name": "darkforest-local",
+  "private": true,
+  "engines": {
+    "node": ">=14 <16"
+  },
+  "workspaces": [
+    "eth",
+    "client"
+  ],
+  "scripts": {
+    "prepare": "yarn workspaces run prepare",
+    "test": "yarn workspaces run test",
+    "lint": "yarn workspaces run lint",
+    "format": "yarn workspaces run format",
+    "start:node": "yarn workspace eth hardhat:node",
+    "wait:node": "wait-on tcp:8545",
+    "deploy:contracts": "yarn workspace eth hardhat:dev deploy --whitelist false",
+    "start:client": "yarn workspace client start:dev",
+    "start:game": "run-s wait:node deploy:contracts start:client",
+    "start": "run-p start:node start:game"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "wait-on": "^6.0.0"
+  }
 }
