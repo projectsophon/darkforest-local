@@ -1,5 +1,5 @@
 {
-  "name": "darkforest-quickstart",
+  "name": "darkforest-local",
   "private": true,
   "engines": {
     "node": ">=14 <16"
