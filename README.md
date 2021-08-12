@@ -20,3 +20,7 @@ You won't have a webserver to drip you a few cents to start playing (which Dark 
 > Account #2: 0x3097403b64fe672467345bf159f4c9c5464bd89e (100 ETH)
 >
 > Private Key: 0x67195c963ff445314e667112ab22f4a7404bad7f9746564eb409b9bb8c6aed32
+
+## Update to latest Dark Forest code
+
+If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is possible you can get away with updating yourself by running `git submodule update --remote --merge` and remember to run `yarn` again.
