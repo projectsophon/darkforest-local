@@ -24,3 +24,10 @@ You won't have a webserver to drip you a few cents to start playing (which Dark 
 ## Update to latest Dark Forest code
 
 If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is possible you can get away with updating yourself by running `git submodule update --remote --merge` and remember to run `yarn` again.
+
+## For maintainers of the repo updating to latest Dark Forest code
+
+- [update](#For-maintainers-of-the-repo-updating-to-latest-Dark-Forest-code).
+- run `yarn`.
+- strip any darkforest deps from the yarn.lock so the user is always getting the latest version of the game on fresh clone.
+- Finall add all changes and commit and PR.

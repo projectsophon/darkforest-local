@@ -6,7 +6,9 @@
   },
   "workspaces": [
     "eth",
-    "client"
+    "client",
+    "circuits",
+    "packages"
   ],
   "scripts": {
     "prepare": "yarn workspaces run prepare",
