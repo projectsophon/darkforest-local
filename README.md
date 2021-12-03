@@ -43,6 +43,14 @@ You should see something like this:
 
 > Dark Forest uses [yarn workspaces](https://yarnpkg.com/features/workspaces)
 
+To deploy the website interface, you may either self-host, or do what Dark Forest does and use netlify. This is a simple option, and free for up to 20gb of bandwidth per month, which has often been enough for us.
+
+To deploy to netlify, you can run the following command:
+
+```bash
+yarn workspace client deploy:prod
+```
+
 ## Update to latest Dark Forest code
 
 If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is possible you can get away with updating yourself by running `git submodule update --remote --merge` and remember to run `yarn` again.
