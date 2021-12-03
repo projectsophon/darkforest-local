@@ -37,6 +37,10 @@ To deploy the contracts, you will need to run the following command:
 yarn workspace eth hardhat:prod deploy
 ```
 
+You should see something like this:
+
+![yarn workspace eth hardhat:prod deploy](img/hardhat_prod_deploy.png)
+
 > Dark Forest uses [yarn workspaces](https://yarnpkg.com/features/workspaces)
 
 ## Update to latest Dark Forest code
