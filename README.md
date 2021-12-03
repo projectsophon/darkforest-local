@@ -21,6 +21,24 @@ You won't have a webserver to drip you a few cents to start playing (which Dark 
 >
 > Private Key: 0x67195c963ff445314e667112ab22f4a7404bad7f9746564eb409b9bb8c6aed32
 
+## Deploy to Production (Community Round)
+
+Deploying to production is quite similar to deploying a local version of the game.
+
+#### Deploy Contracts
+
+Unlike in development mode, in production mode you will need to create a `.env` file in both the `client/` and `eth/` submodules. You can find the set of environment variables you will need to populate those `.env` files with in their adjacent `.env.example` files.
+
+> Danger! The `.env` files ARE in the respective `.gitignore`s of the aforementioned submodules, however you should also manually make sure that they don't end up checked into your repository.
+
+To deploy the contracts, you will need to run the following command:
+
+```bash
+yarn workspace eth hardhat:prod deploy
+```
+
+> Dark Forest uses [yarn workspaces](https://yarnpkg.com/features/workspaces)
+
 ## Update to latest Dark Forest code
 
 If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is possible you can get away with updating yourself by running `git submodule update --remote --merge` and remember to run `yarn` again.
