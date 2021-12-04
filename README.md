@@ -107,7 +107,7 @@ Once you collect the addresses of the people you want to let into your world, yo
 individually via the following command
 
 ```bash
-yarn workspace eth hardhat:prod whitelist:register $BURNER_WALLET_ADDRESS
+yarn workspace eth hardhat:prod whitelist:register --address $BURNER_WALLET_ADDRESS
 # where $BURNER_WALLET_ADDRESS is the network address of the player you want to allow to play in
 # your deployment of the game.
 ```
