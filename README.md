@@ -51,6 +51,10 @@ To deploy to netlify, you can run the following command:
 yarn workspace client deploy:prod
 ```
 
+You should see something like this:
+
+![yarn workspace eth hardhat:prod deploy](img/netlify_prod_deploy.png)
+
 ## Update to latest Dark Forest code
 
 If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is possible you can get away with updating yourself by running `git submodule update --remote --merge` and remember to run `yarn` again.
