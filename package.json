@@ -2,10 +2,21 @@
   "name": "darkforest-local",
   "private": true,
   "engines": {
-    "node": ">=14 <16"
+    "node": ">=14"
   },
   "workspaces": [
+    "packages/events",
+    "packages/hashing",
+    "packages/snarks",
     "eth",
+    "packages/contracts",
+    "packages/types",
+    "packages/constants",
+    "packages/hexgen",
+    "packages/serde",
+    "packages/network",
+    "packages/ui",
+    "circuits",
     "client"
   ],
   "scripts": {
@@ -21,7 +32,12 @@
     "start": "run-p start:node start:game"
   },
   "devDependencies": {
+    "@types/color": "^3.0.2",
+    "@types/json-stable-stringify": "^1.0.33",
     "npm-run-all": "^4.1.5",
     "wait-on": "^6.0.0"
+  },
+  "resolutions": {
+    "ts-node": "9.1.1"
   }
 }

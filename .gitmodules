@@ -4,3 +4,9 @@
 [submodule "eth"]
 	path = eth
 	url = https://github.com/darkforest-eth/eth
+[submodule "circuits"]
+	path = circuits
+	url = https://github.com/darkforest-eth/circuits.git
+[submodule "packages"]
+	path = packages
+	url = https://github.com/darkforest-eth/packages
