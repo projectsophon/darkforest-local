@@ -5,10 +5,19 @@
     "node": ">=14"
   },
   "workspaces": [
+    "packages/events",
+    "packages/hashing",
+    "packages/snarks",
     "eth",
-    "client",
+    "packages/contracts",
+    "packages/types",
+    "packages/constants",
+    "packages/hexgen",
+    "packages/serde",
+    "packages/network",
+    "packages/ui",
     "circuits",
-    "packages"
+    "client"
   ],
   "scripts": {
     "prepare": "yarn workspaces run prepare",
