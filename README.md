@@ -1,18 +1,12 @@
 # darkforest-local
 
-The Dark Forest client deploy process is set up for players to easily fork the client and connect to
-the maininet game, but that design decision currently makes it difficult to run a playable version
-of the game locally. This repository provides a setup for running a local game with just a few
-steps.
+The Dark Forest client deploy process is set up for players to easily fork the client and connect to the mainnet game, but that design decision currently makes it difficult to run a playable version of the game locally. This repository provides a setup for running a local game with just a few steps.
 
-This repo uses submodules to pair the [Dark Forest Ethereum
-backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript
-frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
+This repo uses submodules to pair the [Dark Forest Ethereum backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
 
 ## Install
 
-- Clone with submodules `git clone --recurse-submodules https://github.com/projectsophon/darkforest-local` or if you've already cloned and want to update
-  the module `git submodule update --init --recursive`
+- Clone with submodules `git clone --recurse-submodules https://github.com/projectsophon/darkforest-local` or if you've already cloned and want to update the module `git submodule update --init --recursive`
 - Install [Yarn](https://classic.yarnpkg.com/en/docs/install)
 - Run `yarn` at the top level to automatically install all dependencies from subfolders.
 
@@ -21,9 +15,7 @@ frontend](https://github.com/darkforest-eth/client) so you can launch a local ga
 - Open a terminal tab and run `yarn start`, which will 1) start a local node, 2) deploy the contracts, and 3) run the local client in dev mode
 - When finsihed, the process should pop up your browser to the game client at http://localhost:8081/
 
-You won't have a webserver to drip you a few cents to start playing (which Dark Forest usually does)
-so instead of creating a new burner wallet, you'll want to import one of the private keys the node
-funded for you. See the node page where it prints wallets like:
+You won't have a webserver to drip you a few cents to start playing (which Dark Forest usually does) so instead of creating a new burner wallet, you'll want to import one of the private keys the node funded for you. See the node page where it prints wallets like:
 
 > Account #2: 0x3097403b64fe672467345bf159f4c9c5464bd89e (100 ETH)
 >
@@ -35,8 +27,8 @@ If you want to deploy the contracts (with whatever modifications you want) to ma
 code (with whatever modifications you want), you can follow these instructions. The reasons you
 might want to do this could be one of:
 
-- you want to run a community round of Dark Forest
-- you want to run a multiplayer round with some friends
+- You want to run a community round of Dark Forest
+- You want to run a multiplayer round with some friends
 - etc.
 
 Deploying to production is quite similar to deploying a local version of the game, but I'm going to
@@ -48,7 +40,7 @@ Unlike in development mode, in production mode you will need to create a `.env` 
 `client/` and `eth/` submodules. You can find the set of environment variables you will need to
 populate those `.env` files with in their adjacent `.env.example` files.
 
-> Danger! The `.env` files ARE in the respective `.gitignore`s of the aforementioned submodules,
+> **Danger!** The `.env` files ARE in the respective `.gitignore`s of the aforementioned submodules,
 > however you should also manually make sure that they don't end up checked into your repository.
 
 To deploy the contracts, you will need to run the following command:
