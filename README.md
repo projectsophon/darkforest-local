@@ -27,7 +27,7 @@ If theres been new Dark Forest updates released and we haven't yet updated this 
 
 ## For maintainers of the repo updating to latest Dark Forest code
 
-- [update](#For-maintainers-of-the-repo-updating-to-latest-Dark-Forest-code).
-- run `yarn`.
-- strip any darkforest deps from the yarn.lock so the user is always getting the latest version of the game on fresh clone.
-- Finall add all changes and commit and PR.
+- [Update the submodules](#update-to-latest-dark-forest-code).
+- Replace the root `yarn.lock` with the `yarn.lock` from `eth/` or `client/`
+- Run `yarn`.
+- Finally add all changes, commit, and PR.
