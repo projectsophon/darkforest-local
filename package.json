@@ -28,7 +28,8 @@
     "wait:node": "wait-on tcp:8545",
     "deploy:contracts": "yarn workspace eth hardhat:dev deploy --whitelist false",
     "start:client": "yarn workspace client start:dev",
-    "start:game": "run-s wait:node deploy:contracts start:client",
+    "start:game": "run-s wait:node deploy:contracts add:planets start:client",
+    "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
     "start": "run-p start:node start:game"
   },
   "devDependencies": {
