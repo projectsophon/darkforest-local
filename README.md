@@ -16,7 +16,7 @@ Yarn places all of the packages for each submodule in the top level `node_module
 * Install [Yarn](https://classic.yarnpkg.com/en/docs/install)
 * Install `node >= 14` (You can consider using [nvm](https://github.com/nvm-sh/nvm))
 
-### Fastest Method for Running a Local Game
+### Quickstart for running a local game
 1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your Github repo.
 2. `git clone https://github.com/<your_name>/darkforest-local.git`
 3. `git submodule update --init --recursive --remote --merge`
