@@ -130,7 +130,7 @@ To use Netlify:
     
 - Choose *Enter a site ID*
     
-    ![Screen Shot 2022-01-15 at 12.35.15 PM.png](img/site_id.png)
+    ![Site ID](img/site_id.png)
     
 - Input the id that you find by clicking on your new site on Netlify. In this example, the id is `jolly-hermann-3947ca`
 - Now that your site is linked, you can deploy to Netlify from the CLI.
