@@ -10,7 +10,7 @@ steps.
 
 This repo uses [submodules](.gitmodules) to pair the [Dark Forest Ethereum backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
 
-It also uses Yarn, a package manager and that allows for multiple [workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces) to exist within a project.
+It also uses Yarn, a package manager (like `npm`) that allows for multiple [workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces) to exist within a project.
 
 The workspaces allows each [submodule](.gitmodules) to have their own packages and configuration. 
 Yarn places all of the packages for each submodule in the top level `node_modules/` folder.
