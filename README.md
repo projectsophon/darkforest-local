@@ -23,7 +23,7 @@ Yarn places all of the packages for each submodule in the top level `node_module
 4. `yarn`
 5. `yarn start`
 
-### Better Method for Running a Local Game
+### If you plan to make changes to `darkforest-local`
 1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
 2. Fork [darkforest-eth/eth](https://github.com/darkforest-eth/eth) to your GitHub account
 3. Fork [darkforest-eth/client](https://github.com/darkforest-eth/client) to your GitHub account
