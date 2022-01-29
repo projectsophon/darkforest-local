@@ -5,9 +5,6 @@ the mainnet game, but that design decision currently makes it difficult to run a
 of the game locally. This repository provides a setup for running a local game with just a few
 steps.
 
-## Builder's Guide
-
-For a full tutorial on using `darkforest-local` with multiple **quests**, check out the [Community Round Builder's Guide](builders_guide.md).
 
 ## How darkforest-local Works
 
