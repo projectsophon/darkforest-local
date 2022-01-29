@@ -141,7 +141,7 @@ To use Netlify:
         
     - *Note: To do this, you will have to turn on automatic deploys for your site. This means that if you push an update to your main Git branch, Netlify will attempt to redeploy the site. This will fail, because the client relies on the most recent versions of the packages you have created, but Netlify will try to install the older versions from npm instead of locally.*
         
-        ![Screen Shot 2022-01-15 at 12.38.57 PM.png](img/prod_deploy.png)
+        ![deploy_failures](img/prod_deploy.png)
         
     - *If you inspect the Netlify deploy logs, you might see a bunch of failed builds. This is ok - your public URL will still contain the most recent successful deploy, which was the deploy you manually triggered from the CLI.*
 
