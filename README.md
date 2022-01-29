@@ -6,7 +6,7 @@ of the game locally. This repository provides a setup for running a local game w
 steps.
 
 
-## How darkforest-local Works
+## How `darkforest-local` works
 
 This repo uses [submodules](.gitmodules) to pair the [Dark Forest Ethereum
 backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript
