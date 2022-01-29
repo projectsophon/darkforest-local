@@ -8,9 +8,7 @@ steps.
 
 ## How `darkforest-local` works
 
-This repo uses [submodules](.gitmodules) to pair the [Dark Forest Ethereum
-backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript
-frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
+This repo uses [submodules](.gitmodules) to pair the [Dark Forest Ethereum backend](https://github.com/darkforest-eth/eth) with the [Dark Forest TypeScript frontend](https://github.com/darkforest-eth/client) so you can launch a local game.
 
 It also uses Yarn, a package manager and that allows for multiple [workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces) to exist within a project.
 
