@@ -17,23 +17,25 @@ Yarn places all of the packages for each submodule in the top level `node_module
 * Install `node >= 14` (You can consider using [nvm](https://github.com/nvm-sh/nvm))
 
 ### Quickstart for running a local game
-1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your Github repo.
-2. `git clone https://github.com/<your_name>/darkforest-local.git`
-3. `git submodule update --init --recursive --remote --merge`
+1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
+2. `git clone --recurse-submodules https://github.com/<your_name>/darkforest-local.git`
+3. If you didn't clone with `--recurse-submodules` or already have a cloned version: `git submodule update --init --recursive --remote --merge`
 4. `yarn`
 5. `yarn start`
 
 ### Better Method for Running a Local Game
-1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your Github repo.
-2. Fork [darkforest-eth/eth](https://github.com/darkforest-eth/eth) to your Github repo
-3. Fork [darkforest-eth/client](https://github.com/darkforest-eth/client) to your Github repo.
+1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
+2. Fork [darkforest-eth/eth](https://github.com/darkforest-eth/eth) to your GitHub account
+3. Fork [darkforest-eth/client](https://github.com/darkforest-eth/client) to your GitHub account
+4. Fork [darkforest-eth/circuits](https://github.com/darkforest-eth/circuits) to your GitHub account
+5. Fork [darkforest-eth/packages](https://github.com/darkforest-eth/packages) to your GitHub account
 4. Clone your darkforest-local repo: `git clone https://github.com/<your_name>/darkforest-local.git`
-5. Update the `.gitmodules` file to point to your new forks of `eth` and `client.  
+5. Update the `.gitmodules` file to point to your new forks of `eth`, `client`, `circuits`, and `packages` 
     ex: 
-    * `url = https://github.com/darkforest-eth/eth` =>  
-    `url = https://github.com/cha0sg0d/eth`
-    * `url = https://github.com/darkforest-eth/client` =>  
-    `url = https://github.com/cha0sg0d/client`
+    * `url = https://github.com/darkforest-eth/eth` => `url = https://github.com/cha0sg0d/eth`
+    * `url = https://github.com/darkforest-eth/client` => `url = https://github.com/cha0sg0d/client`
+    * `url = https://github.com/darkforest-eth/circuits` => `url = https://github.com/cha0sg0d/circuits`
+    * `url = https://github.com/darkforest-eth/packages` => `url = https://github.com/cha0sg0d/packages`
 6. Fetch the code from the submodules
     * `git submodule update --init --recursive`   
 7. Add new branches for developing:
@@ -81,7 +83,7 @@ Unlike in development mode, in production mode you will need to create a `.env` 
 `client/` and `eth/` submodules. You can find the set of environment variables you will need to
 populate those `.env` files with in their adjacent `.env.example` files.
 
-> Danger! The `.env` files ARE in the respective `.gitignore`s of the aforementioned submodules,
+> **Danger!** The `.env` files ARE in the respective `.gitignore`s of the aforementioned submodules,
 > however you should also manually make sure that they don't end up checked into your repository.
 
 To randomly generate a new deployer private key and mnemonic for `eth/.env`, run 
@@ -114,8 +116,8 @@ gigabytes of bandwidth per month, which has often been enough for us.
 
 To use Netlify:
 
-- Make a new [Netlify account](https://app.netlify.com/signup) using your Github profile.
-- [Import](https://app.netlify.com/start) your Github client repo as a new Netlify site.
+- Make a new [Netlify account](https://app.netlify.com/signup) using your GitHub account
+- [Import](https://app.netlify.com/start) your `client` repository as a new Netlify site.
 - Install the Netlify CLI
     - `npm install netlify-cli -g`
 - Login to your account
