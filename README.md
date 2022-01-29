@@ -1,9 +1,6 @@
 # darkforest-local
 
-The Dark Forest client deploy process is set up for players to easily fork the client and connect to
-the mainnet game, but that design decision currently makes it difficult to run a playable version
-of the game locally. This repository provides a setup for running a local game with just a few
-steps.
+The Dark Forest client deploy process is set up for players to easily fork the client and connect to the mainnet game, but that design decision currently makes it difficult to run a playable version of the game locally. This repository provides a setup for running a local game with just a few steps.
 
 
 ## How `darkforest-local` works
