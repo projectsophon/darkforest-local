@@ -126,7 +126,7 @@ To use Netlify:
 - Connect to your app
     - `netlify link`
     
-    ![link](img/link.png)
+    ![Netlify link](img/link.png)
     
 - Choose *Enter a site ID*
     
