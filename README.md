@@ -187,9 +187,7 @@ Then, once you've found a home planet, you should be able to enter the game!
 
 ## Update to latest Dark Forest code
 
-If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is
-possible you can get away with updating yourself by running `git submodule update --remote --merge`
-and remember to run `yarn` again.
+If theres been new Dark Forest updates released and we haven't yet updated this repo yet, it is possible you can get away with updating yourself by running `git submodule update --remote --merge` and remember to run `yarn` again.
 
 ## For maintainers of the repo updating to latest Dark Forest code
 
