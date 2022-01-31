@@ -83,7 +83,7 @@ might want to do this could be one of:
 Deploying to production is quite similar to deploying a local version of the game, but I'm going to
 walk through the steps explicitly here.
 
-### Step 1: deploy contracts
+### Step 1: Deploy contracts
 
 Unlike in development mode, in production mode you will need to create a `.env` file in both the
 `client/` and `eth/` submodules. You can find the set of environment variables you will need to
@@ -123,7 +123,18 @@ gigabytes of bandwidth per month, which has often been enough for us.
 To use Netlify:
 
 - Make a new [Netlify account](https://app.netlify.com/signup) using your Github profile.
-- [Import](https://app.netlify.com/start) your Github client repo as a new Netlify site.
+- [Import](https://app.netlify.com/start) your forked **darkforest-local** repo as a new Netlify site.
+
+    - During Step 3 of the import (Site settings, and deploy!):
+        - Build command: `yarn workspace client build`
+        - Publish directory: `client/dist`
+
+    Your initial settings should look like this:
+
+    ![netlify_settings](img/netlify_import.png)  
+
+    *Importing from Github will automatically trigger an initial build by Netlify, which will take ~5 min.*
+
 - Install the Netlify CLI
     - `npm install netlify-cli -g`
 - Login to your account
@@ -139,17 +150,14 @@ To use Netlify:
     
 - Input the id that you find by clicking on your new site on Netlify. In this example, the id is `jolly-hermann-3947ca`
 - Now that your site is linked, you can deploy to Netlify from the CLI.
-    - `yarn workspace client deploy:prod`
+    - `yarn deploy:client:prod`
     - If successful, you will see something like this.
         
         ![deploy_success](img/netlify_deploy.png)
-        
-    - *Note: To do this, you will have to turn on automatic deploys for your site. This means that if you push an update to your main Git branch, Netlify will attempt to redeploy the site. This will fail, because the client relies on the most recent versions of the packages you have created, but Netlify will try to install the older versions from npm instead of locally.*
-        
-        ![Screen Shot 2022-01-15 at 12.38.57 PM.png](img/prod_deploy.png)
-        
-    - *If you inspect the Netlify deploy logs, you might see a bunch of failed builds. This is ok - your public URL will still contain the most recent successful deploy, which was the deploy you manually triggered from the CLI.*
-
+    - By default, all future changes to the branch you specified in the settings will result in an automatic deploy (in this case `master`). 
+    - You can still choose to deploy manually (via `yarn deploy:client:prod`).
+    - Additionally, if you want to stop auto-publishing via git updates, see this image:
+        ![stop_auto_publishing](img/stop_auto_publishing.png)
 
 ### Step 3: Allow player addresses
 
