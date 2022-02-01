@@ -13,8 +13,8 @@ The workspaces allows each [submodule](.gitmodules) to have their own packages a
 Yarn places all of the packages for each submodule in the top level `node_modules/` folder.
 
 ## Requirements
-* Install [Yarn](https://classic.yarnpkg.com/en/docs/install)
 * Install `node >= 14` (You can consider using [nvm](https://github.com/nvm-sh/nvm))
+* Install [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
 ### Quickstart for running a local game
 1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
@@ -44,14 +44,15 @@ Yarn places all of the packages for each submodule in the top level `node_module
         1. `git checkout -b <new_name>`
     2. `cd client`
         1. `git checkout -b <new_name>`
+    3. `cd circuits`
+        1. `git checkout -b <new_name>`
+    4. `cd packages`
+        1. `git checkout -b <new_name>`
 7. Install packages and dependencies
     * `yarn`
 8. Start a game
     * `yarn start`
 
-        If `yarn start` returns the error `ERR_OSSL_EVP_UNSUPPORTED`:  
-        * *This error occurs when using Node v17+*
-        * To fix, run `export NODE_OPTIONS=--openssl-legacy-provider` or switch to `14 <= node <= 16`
             
 ## Run a local game
 
