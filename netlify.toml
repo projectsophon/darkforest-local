@@ -1,0 +1,14 @@
+[build]
+  command = "yarn workspace client build"
+  functions = "functions"
+  publish = "client/dist"
+
+[build.environment]
+  CONVERSATION_API_HOST = ""
+  LEADERBOARD_API = ""
+  WEBSERVER_URL = ""
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
