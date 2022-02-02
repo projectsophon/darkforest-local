@@ -3,6 +3,7 @@
 # Intro
 
 - The goal of this guide will Dark Forest enthusiasts how to build and deploy their own rounds.
+- It will also provide a high-level overview of the Dark Forest blockchain application. If are new to the Dark Forest codebase, please scan this [document](dapp.md) first.
 
 ## Why should you run a community round?
 
@@ -37,8 +38,8 @@
 1. Install [git](https://git-scm.com/downloads) to your local machine if you don’t have it already.
 2. Make a Github [account](https://github.com/).
 3. Clone the repo and install submodules and dependencies: 
-    1. If you’re here to experiment with a local game and learn about the codebase, follow the [Fastest Method for Local Game](README.md#fastest-method-for-running-a-local-game) instructions.
-    2. If you’re here to deploy a community round to production, follow the [Better Method for Running a Local Game](README.md#better-method-for-running-a-local-game) instructions.
+    1. If you’re here to experiment with a local game and learn about the codebase, follow the [Fastest Method for Local Game](README.md#quickstart-for-running-a-local-game) instructions.
+    2. If you’re here to deploy a community round to production, follow the [Better Method for Running a Local Game](README.md#if-you-plan-to-make-changes-to-darkforest-local) instructions.
     3. Don’t run `yarn start` just yet - we will practice testing the smart contracts before running a local game in Quest 1.
 
 # Quest 1: Local Game #
@@ -47,28 +48,19 @@
 
 ## 1.0 Run Hardhat tests
 
+- Read a quick [overview](dapp.md#what-is-hardhat) of the Hardhat testing software.
+
 - This is not strictly necessary, but a good sanity check to make sure that the current smart contracts are passing the existing tests:  
 	`yarn workspace eth hardhat test`
 	
 - You should see output like this:
     
-    ![Screen Shot 2022-01-11 at 10.17.56 AM.png](img/test.png)
+    ![Hardhat Test](img/test.png)
     
-    ![Screen Shot 2022-01-11 at 10.18.32 AM.png](img/pass.png)
+    ![Hardhat Pass](img/pass.png)
     
 - If everything looks good, the Solidity backend is ready to go.
 
-    
-    ### 1.0.1 What is Hardhat?
-    
-    - [https://hardhat.org/getting-started/](https://hardhat.org/getting-started/)
-    - Hardhat is a development environment to compile, deploy, test, and debug your smart contracts. Hardhat simulates a local blockchain and deploys your contracts to this chain for development purposes.
-    - There are many cool features in Hardhat, including the ability to manually mine blocks, speed up blockchain time, and easily deploy contracts to public chains.
-    - Hardhat also lets you define custom tasks that relate to deploying and interacting with smart contracts. 
-    - For example, the `deploy:contracts` task deploys the Dark Forest contracts and the `game:createPlanets` task adds any custom planets to the universe.
-    - Additionally, Hardhat has a variety of additional plugins that add features such as [unit tests](https://hardhat.org/tutorial/testing-contracts.html#_5-testing-contracts) and [types](https://www.npmjs.com/package/@typechain/hardhat) for smart contracts.
-    - When running tasks on the local network, use `hardhat:dev`.
-    - When running tasks on xDai, use `hardhat:prod`.
 
 ## 1.1 Run a local game.
 
@@ -162,7 +154,7 @@
 - In `contracts/DarkForestCore.sol`:
     
     ```typescript
-    // ~line 92
+    // ~ line 92
     s.gameConstants = DarkForestTypes.GameConstants({
     		...
     		UPGRADEABLE_PLANETS: initArgs.UPGRADEABLE_PLANETS
@@ -181,13 +173,13 @@
     ```
     
 - Run `yarn hardhat compile` to make sure that the contract compiles successfully.
-- See contract too big warning in [Troubleshooting](#troubleshooting) if needed.
+  - *See contract too big warning in [Troubleshooting](#troubleshooting) if needed.*
 
 ## 3.1 Write a Hardhat test to confirm existence of new config.
 
 ### 3.1.1 Add a new fixture for testing an upgradeable planets universe
 
-- *What is a fixture?* See [here](https://ethereum-waffle.readthedocs.io/en/latest/fixtures.html).
+- *Quickly Learn about [fixtures](https://ethereum-waffle.readthedocs.io/en/latest/fixtures.html).*
 - Add to `eth/test/utils/WorldConstants.ts`:
     
     ```typescript
@@ -260,7 +252,7 @@
 
 - `yarn hardhat test test/DFCustomUpgrade.test.ts`
     
-    ![Screen Shot 2022-01-21 at 10.37.58 AM.png](img/custom_upgrade_init.png)
+    ![Initial Custom Upgrade Output](img/custom_upgrade_init.png)
     
 - A successful result should look like this ^.
 
@@ -347,7 +339,7 @@
 
 ### 3.3.2 Create a new test to confirm asteroid upgraes are successful.
 
-- Name this test:`should upgrade asteroid if asteroid is upgradeable`
+- Name this test: `should upgrade asteroid if asteroid is upgradeable`
 
 - If you carefully examine the `should upgrade planet stats and emit event` test in DFCustomUpgrade.test.ts, you should be able to infer how to test the upgrade for the `LVL1_ASTEROID_2`.
 - Try this on your own before peeking!
@@ -419,7 +411,7 @@ The upgrade logic is now working in the tests, but we need to make these changes
 
 ## 3.6 Add `UPGRADEABLE_PLANETS` config to the client
 
-- This allows us to reference our config value anywhere in the client.
+- This allows us to reference the value of `UPGRADEABLE_PLANETS` anywhere in the client.
 
 ### 3.6.1 Add `UPGRADEABLE_PLANETS` type
 
@@ -454,7 +446,7 @@ The upgrade logic is now working in the tests, but we need to make these changes
     ```
     
 
-## 3.7 Add the business logic to `UpgradeDetailsPane.typescript`
+## 3.7 Show user which planets are upgradeable
 
 - In `client/src/Frontend/Panes/UpgradeDetailsPane.ts`:
     - Try to change this logic yourself to allow only the planets marked as true in `UPGRADEABLE_PLANETS` variable to be upgraded in the client.
@@ -469,7 +461,7 @@ The upgrade logic is now working in the tests, but we need to make these changes
     - SPOILER
         
         ```typescript
-        // Line ~88
+        // ~ Line 88
         const UPGRADEABLE_PLANETS = uiManager.getGameManager().getContractConstants().UPGRADEABLE_PLANETS;
         
           if (planet && account) {
