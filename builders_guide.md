@@ -279,59 +279,61 @@
 - When you are done, rename the test `should reject upgrade on planets that are NOT upgradeable`.
 
 - Try this on your own before peeking!
-- SPOILER
-    
-    ```typescript
+<details>
+ <summary>Solution</summary>
+
+  ```typescript
     it('should reject upgrade on planets that are NOT upgradeable', async function () {
         await world.user1Core.initializePlayer(...makeInitArgs(SPAWN_PLANET_1));
-    
+
         // conquer the special planets
         await conquerUnownedPlanet(world, world.user1Core, SPAWN_PLANET_1, LVL1_ASTEROID_2);
         await conquerUnownedPlanet(world, world.user1Core, SPAWN_PLANET_1, LVL3_SPACETIME_1);
         await conquerUnownedPlanet(world, world.user1Core, SPAWN_PLANET_1, ARTIFACT_PLANET_1);
         await conquerUnownedPlanet(world, world.user1Core, SPAWN_PLANET_1, LVL1_QUASAR);
-    
+
         // fill up the special planets with silver
         await feedSilverToCap(world, world.user1Core, LVL1_ASTEROID_2, LVL3_SPACETIME_1);
         await feedSilverToCap(world, world.user1Core, LVL1_ASTEROID_2, ARTIFACT_PLANET_1);
         await feedSilverToCap(world, world.user1Core, LVL1_ASTEROID_2, LVL1_QUASAR);
         await increaseBlockchainTime(); // fills up LVL1_ASTEROID_2
-    
+
         const UPGRADEABLE_PLANETS = (await world.contracts.core.gameConstants()).UPGRADEABLE_PLANETS;
-    
+
         enum PlanetType {PLANET, ASTEROID, FOUNDRY, RIP, QUASAR};
-    
+
         // Only expect revert on planets that are NOT upgradeable
-    
+
         if(!UPGRADEABLE_PLANETS[PlanetType.PLANET]) {
           console.log("ERROR: PLANET type must be upgradeable");
         }
-    
+
         if(!UPGRADEABLE_PLANETS[PlanetType.ASTEROID]) {
           await expect(world.user1Core.upgradePlanet(LVL1_ASTEROID_2.id, 0)).to.be.revertedWith(
             'Can only upgrade allowed planet types'
           );
         }
-    
+
         if(!UPGRADEABLE_PLANETS[PlanetType.FOUNDRY]) {
           await expect(world.user1Core.upgradePlanet(ARTIFACT_PLANET_1.id, 0)).to.be.revertedWith(
             'Can only upgrade allowed planet types'
           );
         }
-    
+
         if(!UPGRADEABLE_PLANETS[PlanetType.RIP]) {
           await expect(world.user1Core.upgradePlanet(LVL3_SPACETIME_1.id, 0)).to.be.revertedWith(
             'Can only upgrade allowed planet types'
           );
         }
-    
+
         if(!UPGRADEABLE_PLANETS[PlanetType.QUASAR]) {
           await expect(world.user1Core.upgradePlanet(LVL1_QUASAR.id, 0)).to.be.revertedWith(
             'Can only upgrade allowed planet types'
           );
         }
       });
-    ```
+  ```
+</details>
     
 
 ### 3.3.2 Create a new test to confirm asteroid upgrades are successful
@@ -340,49 +342,50 @@
 
 - If you carefully examine the `should upgrade planet stats and emit event` test in `DFCustomUpgrade.test.ts`, you should be able to infer how to test the upgrade for the `LVL1_ASTEROID_2`.
 - Try this on your own before peeking!
-- SPOILER
-    
-    ```typescript
+<details>
+  <summary>Solution</summary>
+
+  ```typescript
     it('should upgrade asteroid if asteroid is upgradeable', async function (){
         const ASTEROID = 1;
         const gameConstants = await world.contracts.core.gameConstants()
         expect(gameConstants.UPGRADEABLE_PLANETS[ASTEROID]).to.be.true;
-    
+
         const upgradeablePlanetId = LVL1_PLANET_NEBULA.id;
         const silverMinePlanetId = LVL1_ASTEROID_2.id;
-    
+
         await world.user1Core.initializePlayer(...makeInitArgs(SPAWN_PLANET_1));
-    
+
         // conquer silver mine and upgradeable planet
         await conquerUnownedPlanet(world, world.user1Core, SPAWN_PLANET_1, LVL1_PLANET_NEBULA);
         await conquerUnownedPlanet(world, world.user1Core, SPAWN_PLANET_1, LVL1_ASTEROID_2);
-    
+
         await increaseBlockchainTime();
-    
+
         await world.user1Core.refreshPlanet(silverMinePlanetId);
-    
+
         const planetBeforeUpgrade = await world.contracts.core.planets(silverMinePlanetId);
-    
+
         const silverCap = planetBeforeUpgrade.silverCap.toNumber();
         const initialSilver = planetBeforeUpgrade.silver.toNumber();
         const initialPopulationCap = planetBeforeUpgrade.populationCap;
         const initialPopulationGrowth = planetBeforeUpgrade.populationGrowth;
-    
+
         await expect(world.user1Core.upgradePlanet(silverMinePlanetId, 0))
           .to.emit(world.contracts.core, 'PlanetUpgraded')
           .withArgs(world.user1.address, silverMinePlanetId, BN.from(0), BN.from(1));
-    
+
         const planetAfterUpgrade = await world.contracts.core.planets(silverMinePlanetId);
         const newPopulationCap = planetAfterUpgrade.populationCap;
         const newPopulationGrowth = planetAfterUpgrade.populationGrowth;
         const newSilver = planetAfterUpgrade.silver.toNumber();
-    
+
         expect(newSilver).to.equal(initialSilver - 0.2 * silverCap);
         expect(initialPopulationCap).to.be.below(newPopulationCap);
         expect(initialPopulationGrowth).to.be.below(newPopulationGrowth);
       });
-    ```
-    
+  ```
+</details>
 
 ## 3.4 Run the new Hardhat test
 
@@ -400,7 +403,7 @@
     > AssertionError: Expected transaction to be reverted with Can only upgrade regular planets, but other exception was thrown: Error: VM Exception while processing transaction: reverted with reason string 'Can only upgrade allowed planet types’
     > 
     - How would you fix this?
-        - (Hint: see the SPOILER to 3.3.1)
+        - (Hint: see the Solution to 3.3.1)
 - Fix this error and run `yarn workspace eth test` again and all test should pass.
 
 The upgrade logic is now working in the tests, but we need to make these changes accessible to players using the game client as well.
@@ -454,22 +457,24 @@ The upgrade logic is now working in the tests, but we need to make these changes
         const UPGRADEABLE_PLANETS = uiManager.getGameManager().getContractConstants().UPGRADEABLE_PLANETS;
         ```
         
-    - SPOILER
+<details>
+  <summary>Solution</summary>
         
-        ```typescript
-        // ~ Line 88
-        const UPGRADEABLE_PLANETS = uiManager.getGameManager().getContractConstants().UPGRADEABLE_PLANETS;
-        
-          if (planet && account) {
-            if (planet.owner !== account) {
-            } else if (!UPGRADEABLE_PLANETS[planet.planetType] || planet.silverCap === 0) {
-              content = (
-                <CenterBackgroundSubtext width={'100%'} height='100px'>
-                  This Planet <br /> is not Upgradeable
-                </CenterBackgroundSubtext>
-              );
-            }
-        ```
+  ```typescript
+  // ~ Line 88
+  const UPGRADEABLE_PLANETS = uiManager.getGameManager().getContractConstants().UPGRADEABLE_PLANETS;
+
+    if (planet && account) {
+      if (planet.owner !== account) {
+      } else if (!UPGRADEABLE_PLANETS[planet.planetType] || planet.silverCap === 0) {
+        content = (
+          <CenterBackgroundSubtext width={'100%'} height='100px'>
+            This Planet <br /> is not Upgradeable
+          </CenterBackgroundSubtext>
+        );
+      }
+  ```
+</details>
         
 
 ## 3.8 Run a local game
