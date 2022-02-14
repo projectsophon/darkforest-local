@@ -2,13 +2,13 @@
 
 # Intro
 
-- The goal of this guide will Dark Forest enthusiasts how to build and deploy their own rounds.
-- It will also provide a high-level overview of the Dark Forest blockchain application. If are new to the Dark Forest codebase, please scan this [document](dapp.md) first.
+- This guide will teach Dark Forest enthusiasts how to build and deploy their own rounds.
+- It will also provide a high-level overview of the Dark Forest blockchain application. If are new to the Dark Forest codebase, please scan the [dapp breakdown document](dapp.md) first.
 
 ## Why should you run a community round?
 
 - You can play Dark Forest whenever you want.
-- You can customize the game with your own reward system, user interface, rulesets, and/or physics.
+- You can customize the game with your own reward system, user interface, rulesets, and/or constraints.
 - It’s super fun.
 
 # Guide Structure
@@ -31,27 +31,27 @@
 
 - How to [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) git repositories.
 - Good git [practices](#appendix-1-using-git-effectively)
-- For Main Quest 3: a small amount of Solidity and Typescript knowledge.
+- For Main Quest 3: a small amount of Solidity and TypeScript knowledge.
 
-# Quest 0: Installation and Setup #
+# Quest 0: Installation and Setup
 
 1. Install [git](https://git-scm.com/downloads) to your local machine if you don’t have it already.
-2. Make a Github [account](https://github.com/).
+2. Make a GitHub [account](https://github.com/).
 3. Clone the repo and install submodules and dependencies: 
-    1. If you’re here to experiment with a local game and learn about the codebase, follow the [Fastest Method for Local Game](README.md#quickstart-for-running-a-local-game) instructions.
-    2. If you’re here to deploy a community round to production, follow the [Better Method for Running a Local Game](README.md#if-you-plan-to-make-changes-to-darkforest-local) instructions.
+    1. If you’re here to experiment with a local game and learn about the codebase, follow the [Quickstart for running a local game](README.md#quickstart-for-running-a-local-game) instructions.
+    2. If you’re here to deploy a community round to production, follow the [If you plan to make changes to darkforest-local](README.md#if-you-plan-to-make-changes-to-darkforest-local) instructions.
     3. Don’t run `yarn start` just yet - we will practice testing the smart contracts before running a local game in Quest 1.
 
-# Quest 1: Local Game #
+# Quest 1: Local Game
 
 - We are going to learn how run a local game of Dark Forest with no changes to the current configuration.
 
 ## 1.0 Run Hardhat tests
 
-- Read a quick [overview](dapp.md#what-is-hardhat) of the Hardhat testing software.
+- Read a quick [overview](dapp.md#what-is-hardhat) of the Hardhat deployment environment.
 
 - This is not strictly necessary, but a good sanity check to make sure that the current smart contracts are passing the existing tests:  
-	`yarn workspace eth hardhat test`
+	`yarn workspace eth test`
 	
 - You should see output like this:
     
@@ -62,7 +62,7 @@
 - If everything looks good, the Solidity backend is ready to go.
 
 
-## 1.1 Run a local game.
+## 1.1 Run a local game
 
 - This is another sanity check to make sure the client and game have no obvious bugs.
 - Run `yarn start`
@@ -70,7 +70,7 @@
 - In the game, test out the play. If you have any problems, check out the [Troubleshooting](#troubleshooting) section. Find a home planet, make a few moves, reveal a planet, etc. If everything looks good, you can be reasonably confident that everything will work in production.
 - To stop the local Hardhat network and kill the client, type `CTRL C` (^C) in your terminal.
 
-# Quest 2: Local Game with Custom Configuration.
+# Quest 2: Local game with custom configuration
 
 - For this quest, you will configure the universe to be a race to the center with one objective: *Be the first person to capture the Level 9 Planet at coordinate (0,0).*
 
@@ -84,9 +84,9 @@
 
 - Add the following to the `darkforest.toml` file.
 
-```
+```toml
 # Add lvl9 admin planet at (0,0)
-	[[planets]]
+[[planets]]
   x = 0
   y = 0
   level = 9
@@ -97,11 +97,11 @@
 
 - your file should look like [this](https://gist.github.com/cha0sg0d/2d4d9b95a5f90c1b0e285b601b850827).
 
-## 2.3 Run Hardhat Tests
+## 2.3 Run Hardhat tests
 
 - Same as in Step 1.0
 
-## 2.4 Run a local game.
+## 2.4 Run a local game
 
 - Same as 1.2, but check to see that there is a level 9 planet at location (0,0) when you join the universe.
 - The existing deploy script should automatically create the level 9 planet because it calls the Hardhat `createPlanets` task.
@@ -109,33 +109,32 @@
 ## 2.5 Play your game
 
 - Same as 1.1, but now you’re in a custom universe that you designed!
-- Without writing even one line of code, you’ve just made an awesome mode of Dark Forest. Next, we are going to learn how to modify the game even further.
+- Without writing even one line of code, you’ve just made a custom mode of Dark Forest. Next, we are going to learn how to modify the game even further.
 
-# Quest 3: Local Game Custom Client and Contracts.
+# Quest 3: Local game with custom client and contracts.
 
 - For this quest, you will create a Dark Forest game with the following custom rule change: All planets can be upgraded, not just planets of type PLANET.
 	- If you are new to Dark Forest, there are 5 planet types: Planet, Asteroid, Foundry, Spacetime Rip, and Quasar. Currently, only the Planet type can be upgraded to improve its defense, range, or speed. 
 - We will add a new setting, `UPGRADEABLE_PLANETS` that is an array of 5 booleans. If an element is true, the corresponding planet type can be upgraded. If an element is false, the corresponding planet type cannot be upgraded.
 - Before you get started, review the [structure](dapp.md) of the Dark Forest codebase.
 
-## 3.0 Set up a new config variable.
+## 3.0 Set up a new config variable
 
 - We want future users to be able to control planet upgrades from the `darkforest.toml` file. This allows for easy customization of the game for non-technical users.
 
-### 3.0.1 Add a new `UPGRADEABLE_PLANETS` variable to the contracts.
+### 3.0.1 Add a new `UPGRADEABLE_PLANETS` variable to the contracts
 
 - With these edits, we are simply adding a new constant to the codebase that will be set before the contracts are deployed in the `darkforest.toml`. To have a variable reflected across the smart contracts requires making changes in a few places:
-- `cd eth`
 - In `darkforest.toml`:
     
-    ```python
+    ```toml
     # Corresponds to [Planet, Asteroid, Foundry, Rip, Quasar]
-    UPGRADEABLE_PLANETS = [true,true,false,false,false]
+    UPGRADEABLE_PLANETS = [true, true, false, false, false]
     ```
     
 - In `contracts/DarkForestTypes.sol`:
     
-    ```typescript
+    ```solidity
     struct GameConstants {
     	...
     	bool[5] UPGRADEABLE_PLANETS;
@@ -143,7 +142,7 @@
     }
     ```
     
-    ```typescript
+    ```solidity
     struct DfInitArgs {
     	...
     	bool[5] UPGRADEABLE_PLANETS;
@@ -153,7 +152,7 @@
     
 - In `contracts/DarkForestCore.sol`:
     
-    ```typescript
+    ```solidity
     // ~ line 92
     s.gameConstants = DarkForestTypes.GameConstants({
     		...
@@ -168,14 +167,14 @@
     // ~ line 162
     UPGRADEABLE_PLANETS: withDefault<ExactArray5<boolean>>(
     		exactArray5(decoders.boolean),
-    		[true,false,false,false,false]
+    		[true, false, false, false, false]
     )
     ```
     
 - Run `yarn hardhat compile` to make sure that the contract compiles successfully.
   - *See contract too big warning in [Troubleshooting](#troubleshooting) if needed.*
 
-## 3.1 Write a Hardhat test to confirm existence of new config.
+## 3.1 Write a Hardhat test to confirm existence of new config
 
 ### 3.1.1 Add a new fixture for testing an upgradeable planets universe
 
@@ -185,7 +184,7 @@
     ```typescript
     export const customUpgradeInitializers = {
       ...initializers,
-      UPGRADEABLE_PLANETS: [true,true,false,false,false]
+      UPGRADEABLE_PLANETS: [true, true, false, false, false]
     // We're adding the ability to upgrade asteroids!
     }
     ```
@@ -211,30 +210,29 @@
 - In `eth/test/DFCustomUpgrade.test.ts`:
     - Rename the test
     
-    ```typescript
-    //describe('DarkForestUpgrade', function () {
-    describe('DarkForestCustomUpgrade', function () {
+    ```diff
+    - describe('DarkForestUpgrade', function () {
+    + describe('DarkForestCustomUpgrade', function () {
     ```
     
 
 ### 3.1.3 Switch the world fixture in the new test file
 
-- In `eth/test/DFCustomUpgrade.test.ts` :
+- In `eth/test/DFCustomUpgrade.test.ts`:
     
-    ```typescript
-    import {..., customUpgradeWorldFixture } from './utils/TestWorld'
-    
-    
-    beforeEach('load fixture', async function () {
-    	 // world = await fixtureLoader(defaultWorldFixture)
-        world = await fixtureLoader(customUpgradeWorldFixture);
-      });
+    ```diff
+     import {..., customUpgradeWorldFixture } from './utils/TestWorld'
+
+     beforeEach('load fixture', async function () {
+    -    world = await fixtureLoader(defaultWorldFixture)
+    +    world = await fixtureLoader(customUpgradeWorldFixture);
+     });
     ```
     
 
 ### 3.2.3 Write a test to confirm a new config appears
 
-- In `eth/test/DFCustomUpgrade.test.ts` :
+- In `eth/test/DFCustomUpgrade.test.ts`:
     
     ```typescript
     ... // near line 234
@@ -250,7 +248,7 @@
 
 ### 3.2.4 Run that test
 
-- `yarn hardhat test test/DFCustomUpgrade.test.ts`
+- `yarn workspace eth hardhat test test/DFCustomUpgrade.test.ts`
     
     ![Initial Custom Upgrade Output](img/custom_upgrade_init.png)
     
@@ -261,15 +259,14 @@
 - Now that we have a basic test and a new config variable, we actually are going to change the rules of Dark Forest!
 - In `contracts/DarkForestPlanet.sol`
 
-```typescript
+```diff
 // ~line 323
  require(
-//          planet.planetType == DarkForestTypes.PlanetType.PLANET,
-//	            "Can only upgrade regular planets"
-             s().gameConstants.UPGRADEABLE_PLANETS[uint256(planet.planetType)],
-             "Can only upgrade allowed planet types"
+-          planet.planetType == DarkForestTypes.PlanetType.PLANET,
+-             "Can only upgrade regular planets"
++          s().gameConstants.UPGRADEABLE_PLANETS[uint256(planet.planetType)],
++             "Can only upgrade allowed planet types"
  );
-
 ```
 
 - We just changed which planets can be upgraded!
@@ -278,7 +275,7 @@
 
 ### 3.3.1 Modify the `should reject upgrade on silver mine, ...` test.
 
-- This test should now  only reject upgrade on planets that are *marked false* in the `UPGRADEABLE_PLANETS` settings.
+- This test should now only reject upgrade on planets that are *marked false* in the `UPGRADEABLE_PLANETS` settings.
 - When you are done, rename the test `should reject upgrade on planets that are NOT upgradeable`.
 
 - Try this on your own before peeking!
@@ -337,11 +334,11 @@
     ```
     
 
-### 3.3.2 Create a new test to confirm asteroid upgraes are successful.
+### 3.3.2 Create a new test to confirm asteroid upgrades are successful
 
 - Name this test: `should upgrade asteroid if asteroid is upgradeable`
 
-- If you carefully examine the `should upgrade planet stats and emit event` test in DFCustomUpgrade.test.ts, you should be able to infer how to test the upgrade for the `LVL1_ASTEROID_2`.
+- If you carefully examine the `should upgrade planet stats and emit event` test in `DFCustomUpgrade.test.ts`, you should be able to infer how to test the upgrade for the `LVL1_ASTEROID_2`.
 - Try this on your own before peeking!
 - SPOILER
     
@@ -387,25 +384,24 @@
     ```
     
 
-## 3.4 Run the new Hardhat test.
+## 3.4 Run the new Hardhat test
 
-- `yarn hardhat test test/DFCustomUpgrade.test.ts`
+- `yarn workspace eth hardhat test test/DFCustomUpgrade.test.ts`
 - You should see this output
     
-    ![Screen Shot 2022-01-21 at 11.34.01 AM.png](img/custom_upgrade_final.png)
+    ![Custom upgrade test output](img/custom_upgrade_final.png)
     
 
 ## 3.5 Run all Hardhat tests
 
-- *Make sure you’re in the `eth` directory.*
-- `yarn hardhat test`
+- `yarn workspace eth test`
 - You will see an error in `DFUpgrade.test.ts`:
     
     > AssertionError: Expected transaction to be reverted with Can only upgrade regular planets, but other exception was thrown: Error: VM Exception while processing transaction: reverted with reason string 'Can only upgrade allowed planet types’
     > 
     - How would you fix this?
         - (Hint: see the SPOILER to 3.3.1)
-- Fix this error and run `yarn hardhat test` again. All test should pass
+- Fix this error and run `yarn workspace eth test` again and all test should pass.
 
 The upgrade logic is now working in the tests, but we need to make these changes accessible to players using the game client as well.
 
@@ -415,13 +411,13 @@ The upgrade logic is now working in the tests, but we need to make these changes
 
 ### 3.6.1 Add `UPGRADEABLE_PLANETS` type
 
-- The Dark Forest client is a Typescript project. That means that for every new variable we add, (like `UPGRADEABLE_PLANETS` ), we need to add its type as well.
+- The Dark Forest client is a TypeScript project. That means that for every new variable we add, (like `UPGRADEABLE_PLANETS`), we need to add its type as well.
 - In `client/src/_types/darkforest/api/ContractsAPITypes.ts:`
     
-    ```typescript
+    ```diff
     export interface ContractConstants {
-    ...
-    UPGRADEABLE_PLANETS: boolean[];
+       ...
+    +  UPGRADEABLE_PLANETS: boolean[];
     }
     ```
     
@@ -450,7 +446,7 @@ The upgrade logic is now working in the tests, but we need to make these changes
 
 - In `client/src/Frontend/Panes/UpgradeDetailsPane.ts`:
     - Try to change this logic yourself to allow only the planets marked as true in `UPGRADEABLE_PLANETS` variable to be upgraded in the client.
-    - Hint: This is very similar to the change we made to `DarkForestPlanet.sol` but in Typescript.
+    - Hint: This is very similar to the change we made to `DarkForestPlanet.sol` but in TypeScript.
     - Also, to get access to the `UPGRADEABLE_PLANETS` value, we need to access the GameManager object. The React [Frontend](client/src/Frontend) doesn’t have direct access to the GameManager, but it does have access to the GameUiManager, which can fetch the GameManager.
     - So, getting the `UPGRADEABLE_PLANETS` value looks like this:
         
@@ -476,17 +472,17 @@ The upgrade logic is now working in the tests, but we need to make these changes
         ```
         
 
-## 3.8 Run a local game.
+## 3.8 Run a local game
 
 - `yarn` to compile the client side changes
 - `yarn start` to launch the game. (Same as step 1.1)
     - *Note: For test purposes, you can set `DISABLE_ZK_CHECKS` to true for the local game.*
 - See if you can upgrade an asteroid field!
-    - [https://twitter.com/cha0sg0d_/status/1484620387866447873](https://twitter.com/cha0sg0d_/status/1484620387866447873)
+    - [Video showing upgradable asteroid](https://twitter.com/cha0sg0d_/status/1484620387866447873)
 
-A complete solution to Quest 3 can be found on the tutorial branch of [cha0sg0d/eth](https://github.com/cha0sg0d/eth) and [cha0sg0d/client.](https://github.com/cha0sg0d/client)
+A complete solution to Quest 3 can be found on the tutorial branch of [cha0sg0d/eth](https://github.com/cha0sg0d/eth/tree/tutorial) and [cha0sg0d/client](https://github.com/cha0sg0d/client/tree/tutorial).
 
-# Quest 4: Deploy Contracts and Client to Production.
+# Quest 4: Deploy contracts and client to production
 
 Follow the steps in the [README](README.md#static-deployment-of-dark-forest-no-webserver) to deploy the contracts and client.
 
@@ -503,27 +499,26 @@ If your round includes custom planets, run the following command after deploying
 - What is [The Graph](https://thegraph.com/) and why is it useful?
     - [The Graph](https://thegraph.com/) is an indexing protocol for querying networks like Ethereum and IPFS. Anyone can build and publish open APIs, called subgraphs, making data easily accessible.
     - The graph enables more complex queries like who owned this planet at time *t* and has a much faster performance than a vanilla JSON-RPC request.
-- The amazing Jacob Rosenthal has created a DF subgraph that can be deployed via just a few commands. Follow his instructions [here](https://github.com/darkforest-eth/eth/tree/master/subgraph) to deploy the subgraph.
+- [Jacob Rosenthal](https://twitter.com/jacobrosenthal) has created a DF subgraph that can be deployed via just a few commands. Follow the instructions [here](https://github.com/darkforest-eth/eth/tree/master/subgraph) to deploy the subgraph.
     - *Note: If you’re on a Mac M1, Docker might not work, and you won’t be able to test the subgraph locally.*
 - If you are changing a fundamental data structure of the subgraph, you will need to update the schema and mappings. See [here](https://github.com/cha0sg0d/eth/commit/1b382624c986ed2b045b8465bde2df543dc5d3f0) for an example edit.
 
-## Side Quest 2: Auto Whitelisting with no server.
+## Side Quest 2: Auto Whitelisting with no server
 
-*Warning: This information is potentially out of date*
 
 - Get a csv file of all the addresses you want to add to the game.
 - The following command assumes you already have deployed your contracts to production
 - Run:
-    - `yarn workspace eth hardhat:prod whitelist-nokey:register --path <csv of addresses>`
+    - `yarn workspace eth hardhat:prod whitelist:registerAddress --address < cat address.csv`
 
-## Side Quest 3: Publishing your new contracts as an npm package.
+## Side Quest 3: Publishing your new contracts as an npm package
 
-- Will update more later.
+- Work in progress...
 
 
 ## Troubleshooting
 
-- If you see any zk checks fail, like `failed init proof check`, you need to recompile the circuits with the following command:
+- If you see any ZK checks fail, like `failed init proof check`, you need to recompile the circuits with the following command:
     - `yarn workspace eth circom:dev`
     - Wait ~5 minutes for the circuits to recompile. This will result in a new `Verifier.sol` file.
 - If you see the following warning
@@ -532,7 +527,7 @@ If your round includes custom planets, run the following command after deploying
     > 
     - You need to reduce the contract size. Try commenting out changeAdmin or buyHat functions in DarkForestCore. Note that if you do, you will also have to comment out or delete the tests that use these functions.
 
-## Appendix 1: Using Git effectively.
+## Appendix 1: Using Git effectively
 
 - For setting up your environment initially, see the [Better Method for Running a Local Game](README.md#better-method-for-running-a-local-game)
 - Each time you want to add a new feature, make a new branch on that specific repository.

@@ -7,9 +7,9 @@ This page will provide a high level overview of the components and structure of 
 # Intro
 - Dark Forest has a lot of moving parts, but at its core, it is a blockchain-based application, commonly referred as a [dapp](https://ethereum.org/en/developers/docs/dapps/).
     
-    > *A dapp has its backend code running on a decentralized peer-to-peer network (blockchain). Contrast this with an app where the backend code is running on centralized servers.   A dapp can have frontend code and user interfaces written in any language (just like an app) to make calls to its backend*
+    > A dapp has its backend code running on a decentralized peer-to-peer network (blockchain). Contrast this with an app where the backend code is running on centralized servers. A dapp can have frontend code and user interfaces written in any language (just like an app) to make calls to its backend
     > 
-- Dark Forest has a backend that contains the **[code](https://github.com/darkforest-eth/eth/)** that enforces the game physics and rules. This code is divided into files called **[smart contracts](https://github.com/darkforest-eth/eth/tree/master/contracts),** and it runs on a blockchain.
+- Dark Forest has a backend that contains the **[code](https://github.com/darkforest-eth/eth/)** that enforces the game constraints and rules. This code is divided into files called **[smart contracts](https://github.com/darkforest-eth/eth/tree/master/contracts),** and it runs on a blockchain.
 - Players interact with these contracts via a frontend called the **[client](https://github.com/darkforest-eth/client/)**. This **client** shows a visual representation of the state of the Dark Forest universe and serves as the connection between players and the smart contracts on the blockchain.
 - To create a round of Dark Forest, you need to do 3 things:
     1. (optional) Customize the **smart contracts** and **client** to your liking.
