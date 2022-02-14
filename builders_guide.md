@@ -171,7 +171,7 @@
     )
     ```
     
-- Run `yarn hardhat compile` to make sure that the contract compiles successfully.
+- Run `yarn hardhat workspace eth compile` to make sure that the contract compiles successfully.
   - *See contract too big warning in [Troubleshooting](#troubleshooting) if needed.*
 
 ## 3.1 Write a Hardhat test to confirm existence of new config
@@ -539,7 +539,7 @@ If your round includes custom planets, run the following command after deploying
 
 ## Appendix 1: Using Git effectively
 
-- For setting up your environment initially, see the [Better Method for Running a Local Game](README.md#better-method-for-running-a-local-game)
+- For setting up your environment initially, see the [If you plan to make changes to darkforest-local](README.md#if-you-plan-to-make-changes-to-darkforest-local) steps.
 - Each time you want to add a new feature, make a new branch on that specific repository.
     - `git checkout -b <new_feature>`
 - When the feature is ready to go, merge it with your main branch and delete the feature branch.
