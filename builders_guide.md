@@ -505,16 +505,21 @@ If your round includes custom planets, run the following command after deploying
     - [The Graph](https://thegraph.com/) is an indexing protocol for querying networks like Ethereum and IPFS. Anyone can build and publish open APIs, called subgraphs, making data easily accessible.
     - The graph enables more complex queries like who owned this planet at time *t* and has a much faster performance than a vanilla JSON-RPC request.
 - [Jacob Rosenthal](https://twitter.com/jacobrosenthal) has created a DF subgraph that can be deployed via just a few commands. Follow the instructions [here](https://github.com/darkforest-eth/eth/tree/master/subgraph) to deploy the subgraph.
-    - *Note: If you’re on a Mac M1, Docker might not work, and you won’t be able to test the subgraph locally.*
+    - *Note: If you’re on a Mac M1, make sure you have the [correct Docker version](https://docs.docker.com/desktop/mac/apple-silicon/).*
 - If you are changing a fundamental data structure of the subgraph, you will need to update the schema and mappings. See [here](https://github.com/cha0sg0d/eth/commit/1b382624c986ed2b045b8465bde2df543dc5d3f0) for an example edit.
 
 ## Side Quest 2: Auto Whitelisting with no server
 
-
 - Get a csv file of all the addresses you want to add to the game.
-- The following command assumes you already have deployed your contracts to production
-- Run:
-    - `yarn workspace eth hardhat:prod whitelist:registerAddress --address < cat address.csv`
+- Run the following command (`hardhat:prod` for production or `hardhat:dev` for local network)
+  - Run: `yarn workspace eth hardhat:prod whitelist:registerAddress --address < cat address.csv`
+
+  - This will generate a whitelist key for each address and add them to the game.
+
+- You can automate this process (if more people are joining your game) with a simple Hardhat script
+
+- Here is a sample [auto whitelist script](https://github.com/cha0sg0d/eth/blob/community/scripts/whitelist.js) that will give you a place to start.
+
 
 ## Side Quest 3: Publishing your new contracts as an npm package
 
