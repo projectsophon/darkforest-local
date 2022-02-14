@@ -79,10 +79,16 @@
 - Now we are going to make some changes to the game via the settings file. This file is called `darkforest.toml` and lives in the [eth](https://github.com/darkforest-eth/eth/) repository.
 - The `darkforest.toml` is useful because it allows you to configure a large number game parameters without writing a single line of code. Understanding what each parameter means is also a great way to get acquainted with the codebase.
 - Read the explanation of each setting in this [gist](https://gist.github.com/cha0sg0d/2d4d9b95a5f90c1b0e285b601b850827).
+  - *Note: Parameters that affect shrinking are not in the base codebase, so can't be used for this tutorial*.
 
 ## 2.1 Configure `darkforest.toml`
 
-- Add the following to the `darkforest.toml` file.
+- Duplicate the existing the `darkforest.toml` file.
+- Rename it `darkforest.local.toml`
+  - *Note: The settings loader will [prefer](https://github.com/darkforest-eth/eth/blob/master/settings.ts#L260) a toml file that includes your network name over the one without.*
+  - *If you want to deploy your .toml changes to production, put them in `darkforest.xdai.toml`.*
+
+- Add the following to `darkforest.local.toml`:
 
 ```toml
 # Add lvl9 admin planet at (0,0)
@@ -94,8 +100,6 @@
   requireValidLocationId = false
   revealLocation = true
 ```
-
-- your file should look like [this](https://gist.github.com/cha0sg0d/2d4d9b95a5f90c1b0e285b601b850827).
 
 ## 2.3 Run Hardhat tests
 
@@ -116,7 +120,7 @@
 - For this quest, you will create a Dark Forest game with the following custom rule change: All planets can be upgraded, not just planets of type PLANET.
 	- If you are new to Dark Forest, there are 5 planet types: Planet, Asteroid, Foundry, Spacetime Rip, and Quasar. Currently, only the Planet type can be upgraded to improve its defense, range, or speed. 
 - We will add a new setting, `UPGRADEABLE_PLANETS` that is an array of 5 booleans. If an element is true, the corresponding planet type can be upgraded. If an element is false, the corresponding planet type cannot be upgraded.
-- Before you get started, review the [structure](dapp.md) of the Dark Forest codebase.
+- Before you get started, review the [structure](dapp.md#client-overview) of the Dark Forest codebase.
 
 ## 3.0 Set up a new config variable
 
@@ -164,11 +168,8 @@
 - In `settings.ts`:
     
     ```typescript
-    // ~ line 162
-    UPGRADEABLE_PLANETS: withDefault<ExactArray5<boolean>>(
-    		exactArray5(decoders.boolean),
-    		[true, false, false, false, false]
-    )
+    // ~ line 151
+      UPGRADEABLE_PLANETS: yup.array(yup.boolean()).length(5).default([true,false,false,false,false])
     ```
     
 - Run `yarn hardhat workspace eth compile` to make sure that the contract compiles successfully.
@@ -192,17 +193,15 @@
 - Add to `eth/test/utils/TestWorld.ts`:
     
     ```typescript
-    import { .., customUpgradeInitializers } from './WorldConstants';
+    import { customUpgradeInitializers } from './WorldConstants';
     
     export function customUpgradeWorldFixture(): Promise<World> {
       return initializeWorld({
-        //@ts-expect-error due to boolean[] vs ExactArray<boolean> types.
         initializers: customUpgradeInitializers,
         enableWhitelist: false,
       });
     }
     ```
-    
 
 ### 3.1.2 Make a new file for testing
 
@@ -535,7 +534,7 @@ If your round includes custom planets, run the following command after deploying
     
     > Warning: Contract code size is 24622 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on mainnet. Consider enabling the optimizer (with a low "runs" value!), turning off revert strings, or using libraries.
     > 
-    - You need to reduce the contract size. Try commenting out changeAdmin or buyHat functions in DarkForestCore. Note that if you do, you will also have to comment out or delete the tests that use these functions.
+    - You need to reduce the contract size. Try commenting out changeAdmin or buyHat functions in DarkForestCore. Note that if you do, you will also have to comment out or delete the tests that use these functions. (`eth/test/DFHat.test`)
 
 ## Appendix 1: Using Git effectively
 
