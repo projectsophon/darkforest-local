@@ -18,7 +18,7 @@
 0. [Download the correct code and install dependencies](#quest-0-installation-and-setup)
 1. [Deploy a local game](#quest-1-local-game)
 2. [Deploy a local game with a unique configuration via `darkforest.toml`](#quest-2-local-game-with-custom-configuration)
-3. [Deploy a local game with a modified client and contracts](#quest-3-local-game-custom-client-and-contracts)
+3. [Deploy a local game with a modified client and contracts](#quest-3-local-game-with-custom-client-and-contracts)
 4. [Publish your local game to production on xDai and Netlify](#quest-4-deploy-contracts-and-client-to-production)
 
 ## Side Quests
@@ -84,11 +84,11 @@
 ## 2.1 Configure `darkforest.toml`
 
 - Duplicate the existing the `darkforest.toml` file.
-- Rename it `darkforest.local.toml`
+- Rename it `darkforest.localhost.toml`
   - *Note: The settings loader will [prefer](https://github.com/darkforest-eth/eth/blob/master/settings.ts#L260) a toml file that includes your network name over the one without.*
   - *If you want to deploy your .toml changes to production, put them in `darkforest.xdai.toml`.*
 
-- Add the following to `darkforest.local.toml`:
+- Add the following to `darkforest.localhost.toml`:
 
 ```toml
 # Add lvl9 admin planet at (0,0)
@@ -115,7 +115,7 @@
 - Same as 1.1, but now you’re in a custom universe that you designed!
 - Without writing even one line of code, you’ve just made a custom mode of Dark Forest. Next, we are going to learn how to modify the game even further.
 
-# Quest 3: Local game with custom client and contracts.
+# Quest 3: Local game with custom client and contracts
 
 - For this quest, you will create a Dark Forest game with the following custom rule change: All planets can be upgraded, not just planets of type PLANET.
 	- If you are new to Dark Forest, there are 5 planet types: Planet, Asteroid, Foundry, Spacetime Rip, and Quasar. Currently, only the Planet type can be upgraded to improve its defense, range, or speed. 
@@ -128,8 +128,8 @@
 
 ### 3.0.1 Add a new `UPGRADEABLE_PLANETS` variable to the contracts
 
-- With these edits, we are simply adding a new constant to the codebase that will be set before the contracts are deployed in the `darkforest.toml`. To have a variable reflected across the smart contracts requires making changes in a few places:
-- In `darkforest.toml`:
+- With these edits, we are simply adding a new constant to the codebase that will be set before the contracts are deployed in the `darkforest.localhost.toml`. To have a variable reflected across the smart contracts requires making changes in a few places:
+- In `darkforest.localhost.toml`:
     
     ```toml
     # Corresponds to [Planet, Asteroid, Foundry, Rip, Quasar]
@@ -449,7 +449,7 @@ The upgrade logic is now working in the tests, but we need to make these changes
 - In `client/src/Frontend/Panes/UpgradeDetailsPane.ts`:
     - Try to change this logic yourself to allow only the planets marked as true in `UPGRADEABLE_PLANETS` variable to be upgraded in the client.
     - Hint: This is very similar to the change we made to `DarkForestPlanet.sol` but in TypeScript.
-    - Also, to get access to the `UPGRADEABLE_PLANETS` value, we need to access the GameManager object. The React [Frontend](client/src/Frontend) doesn’t have direct access to the GameManager, but it does have access to the GameUiManager, which can fetch the GameManager.
+    - Also, to get access to the `UPGRADEABLE_PLANETS` value, we need to access the GameManager object. The React [Frontend](https://github.com/darkforest-eth/client/tree/master/src/Frontend) doesn’t have direct access to the GameManager, but it does have access to the GameUiManager, which can fetch the GameManager.
     - So, getting the `UPGRADEABLE_PLANETS` value looks like this:
         
         ```jsx
@@ -482,7 +482,7 @@ The upgrade logic is now working in the tests, but we need to make these changes
 - `yarn start` to launch the game. (Same as step 1.1)
     - *Note: For test purposes, you can set `DISABLE_ZK_CHECKS` to true for the local game.*
 - See if you can upgrade an asteroid field!
-    - [Video showing upgradable asteroid](https://twitter.com/cha0sg0d_/status/1484620387866447873)
+    - [It should look something like this](https://twitter.com/cha0sg0d_/status/1484620387866447873)
 
 A complete solution to Quest 3 can be found on the tutorial branch of [cha0sg0d/eth](https://github.com/cha0sg0d/eth/tree/tutorial) and [cha0sg0d/client](https://github.com/cha0sg0d/client/tree/tutorial).
 
@@ -547,5 +547,5 @@ If your round includes custom planets, run the following command after deploying
     - `git branch -d new-feature`
 - When making changes to the codebase, describe each change you make via `git add` and `git commit -m <your_messsage>`
 - It is crucial that each edit is understandable to someone who did not write this code.
-- See my `darkforest/eth` [repo](https://github.com/cha0sg0d/eth/commits/community) for an example of documenting each commit.
+- See [cha0sg0d's](https://github.com/cha0sg0d) `darkforest/eth` [repo](https://github.com/cha0sg0d/eth/commits/community) for an example of documenting each commit.
 
