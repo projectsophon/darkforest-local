@@ -33,7 +33,7 @@
     "deploy:contracts": "yarn workspace eth hardhat:dev deploy --whitelist false",
     "deploy:client": "netlify build && netlify deploy",
     "deploy:client:prod": "netlify build && netlify deploy --prod",
-    "start:client": "yarn workspace client start:dev",
+    "start:client": "yarn workspace client start",
     "start:game": "run-s wait:node deploy:contracts add:planets start:client",
     "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
     "start": "run-p start:node start:game",
