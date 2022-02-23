@@ -5,17 +5,21 @@
     "node": ">=14"
   },
   "workspaces": [
+    "packages/types",
     "packages/events",
     "packages/hashing",
     "packages/snarks",
+    "packages/settings",
     "eth",
     "packages/contracts",
-    "packages/types",
     "packages/constants",
     "packages/hexgen",
     "packages/serde",
     "packages/network",
     "packages/ui",
+    "packages/gamelogic",
+    "packages/procedural",
+    "packages/renderer",
     "circuits",
     "client"
   ],
@@ -32,7 +36,8 @@
     "start:client": "yarn workspace client start:dev",
     "start:game": "run-s wait:node deploy:contracts add:planets start:client",
     "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
-    "start": "run-p start:node start:game"
+    "start": "run-p start:node start:game",
+    "clean": "yarn workspaces run clean"
   },
   "devDependencies": {
     "@types/color": "^3.0.2",
