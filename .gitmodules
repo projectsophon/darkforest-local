@@ -1,12 +1,12 @@
 [submodule "client"]
 	path = client
-	url = https://github.com/darkforest-eth/client
+	url = https://github.com/alt-research/darkforest-client
 [submodule "eth"]
 	path = eth
-	url = https://github.com/darkforest-eth/eth
+	url = https://github.com/alt-research/darkforest-eth
 [submodule "circuits"]
 	path = circuits
-	url = https://github.com/darkforest-eth/circuits.git
+	url = https://github.com/alt-research/darkforest-circuits.git
 [submodule "packages"]
 	path = packages
-	url = https://github.com/darkforest-eth/packages
+	url = https://github.com/alt-research/darkforest-packages
