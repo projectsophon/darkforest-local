@@ -6,7 +6,7 @@
 	url = https://github.com/alt-research/darkforest-eth
 [submodule "circuits"]
 	path = circuits
-	url = https://github.com/alt-research/darkforest-circuits.git
+	url = https://github.com/alt-research/darkforest-circuits
 [submodule "packages"]
 	path = packages
 	url = https://github.com/alt-research/darkforest-packages
