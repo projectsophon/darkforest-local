@@ -10,6 +10,7 @@
     "packages/hashing",
     "packages/snarks",
     "packages/settings",
+    "packages/whitelist",
     "eth",
     "packages/contracts",
     "packages/constants",
@@ -20,7 +21,6 @@
     "packages/gamelogic",
     "packages/procedural",
     "packages/renderer",
-    "packages/whitelist",
     "circuits",
     "client"
   ],
