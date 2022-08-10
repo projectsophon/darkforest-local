@@ -29,15 +29,31 @@
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
     "format": "yarn workspaces run format",
-    "deploy:contracts": "yarn workspace eth hardhat:dev deploy --whitelist false",
+    "start:dev": "run-p start:dev-node start:dev:game",
+    "start:dev-whitelist": "run-p start:dev-node start:dev-whitelist:game",
+    "start:acadia2": "start:acadia2:game",
+
+    "start:dev-node": "yarn workspace eth hardhat:node",
+
+    "start:dev:game": "run-s wait:node deploy:dev:contracts add:dev:planets start:client",
+    "start:dev-whitelist:game": "run-s wait:node deploy:dev-whitelist:contracts add:dev:planets start:client",
+    "start:acadia2:game": "run-s deploy:acadia2:contracts add:acadia2:planets start:client",
+    "start:acadia2-whitelist:game": "run-s deploy:acadia2-whitelist:contracts add:acadia2:planets start:client",
+
+    "deploy:dev:contracts": "yarn workspace eth hardhat:dev deploy --whitelist false",
+    "deploy:dev-whitelist:contracts": "yarn workspace eth hardhat:dev deploy --whitelist true",
+    "deploy:acadia2:contracts": "yarn workspace eth hardhat:acadia2 deploy --whitelist false",
+    "deploy:acadia2-whitelist:contracts": "yarn workspace eth hardhat:acadia2 deploy --whitelist true",
+
+    "add:dev:planets": "yarn workspace eth hardhat:dev game:createPlanets",
+    "add:acadia2:planets": "yarn workspace eth hardhat:acadia2 game:createPlanets",
+
+    "start:client": "yarn workspace client start",
+
     "deploy:client": "netlify build && netlify deploy",
     "deploy:client:prod": "netlify build && netlify deploy --prod",
+
     "wait:node": "wait-on tcp:8545",
-    "start:client": "yarn workspace client start",
-    "start:node": "yarn workspace eth hardhat:node",
-    "start:game": "run-s wait:node deploy:contracts add:planets start:client",
-    "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
-    "start": "run-p start:node start:game",
     "clean:workspaces": "yarn workspaces run clean",
     "clean:self": "del-cli node_modules/",
     "clean": "run-s clean:workspaces clean:self"
