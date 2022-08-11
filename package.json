@@ -32,6 +32,7 @@
     "start:dev": "run-p start:dev-node start:dev:game",
     "start:dev-whitelist": "run-p start:dev-node start:dev-whitelist:game",
     "start:acadia2": "start:acadia2:game",
+    "start:acadia2-whitelist": "start:acadia2-whitelist:game",
 
     "start:dev-node": "yarn workspace eth hardhat:node",
 
