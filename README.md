@@ -16,7 +16,7 @@ The workspaces allows each [submodule](.gitmodules) to have their own packages a
 Yarn places all of the packages for each submodule in the top level `node_modules/` folder.
 
 ## Requirements
-* Install `node >= 14` (You can consider using [nvm](https://github.com/nvm-sh/nvm))
+* Install `node >= 16` (You can consider using [nvm](https://github.com/nvm-sh/nvm))
 * Install [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
 ### Quickstart for running a local game
